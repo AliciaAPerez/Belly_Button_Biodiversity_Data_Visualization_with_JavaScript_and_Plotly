@@ -34,28 +34,30 @@ d3.json("samples.json").then(function(data){
 
     //default plots
     //bar chart with  top 10 OTUs
-    let trace1 = [{
-        x: [],
-        y: []
-        }];
-    let data1 = trace1;
-    //let layout1 = {};
-    Plotly.newPlot("bar", data1);
-
-    //bubble chart
     let topten = samples[0]
     console.log(topten)
-    let sorttopten = topten.sort((a, b) => b.otu_ids - a.otu_ids);
+    let sorttopten = topten.sort(function(a, b) {
+        return b.otu_ids - a.otu_ids;
+    });
     let slicetopten = sorttopten.slice(0,10)
     console.log("hi");
     console.log(sorttopten);
     console.log(slicetopten);
-    let trace2 = [{
+    let trace1 = [{
         x: slicetopten.map(object => object.otu_labels),
-        y: slicetopten.map(object => object.otu_ids),
+        y: slicetopten.map(object => object.otu_ids)
+        }];
+    let data1 = [trace1];
+    //let layout1 = {};
+    Plotly.newPlot("bar", data1);
+
+    //bubble chart
+    let trace2 = [{
+        x: [],
+        y: [],
         mode: 'markers'
         }];
-    let data2 = [trace2];
+    let data2 = trace2;
     //let layout2 = {};
     Plotly.newPlot("bubble", data2);
 
