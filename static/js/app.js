@@ -1,8 +1,11 @@
 // //import data from json
 d3.json("samples.json").then(function(data){ 
+    console.log(data);
     let names = data.names;
     let metadata = data.metadata;
     let samples = data.samples;
+    let sortsamples = samples
+    console.log(sortsamples)
     console.log(names);
     console.log(metadata);
     console.log(samples);
@@ -34,22 +37,24 @@ d3.json("samples.json").then(function(data){
 
     //default plots
     //bar chart with  top 10 OTUs
-    // let topten = samples[0]
-    // console.log(topten)
-    // let sorttopten = topten.sort(function(a, b) {
-    //     return b.otu_ids - a.otu_ids;
-    // });
-    // let slicetopten = sorttopten.slice(0,10)
-    // console.log("hi");
-    // console.log(sorttopten);
-    // console.log(slicetopten);
-    // let trace1 = [{
-    //     x: slicetopten.map(object => object.otu_labels),
-    //     y: slicetopten.map(object => object.otu_ids)
-    //     }];
-    // let data1 = [trace1];
-    // //let layout1 = {};
-    // Plotly.newPlot("bar", data1);
+    console.log("testing")
+    let topten = sortsamples[0].otu_ids    
+    console.log(topten)
+    let sorttopten = topten.sort((a, b) => b - a);
+    
+    let slicetopten = sorttopten.slice(0,10)
+    console.log("hi");
+    console.log(sorttopten);
+    console.log(slicetopten);
+    
+        let trace1 = [{
+            x: slicetopten.map(object => object.otu_labels),
+            y: slicetopten.map(object => object.otu_ids),
+            type: "bar"
+            }];
+        let data1 = [trace1];
+        //let layout1 = {};
+        Plotly.newPlot("bar", data1);
 
     //bubble chart
     console.log(samples[0]);
